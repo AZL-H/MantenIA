@@ -46,3 +46,25 @@ Abre tu terminal, navega a la carpeta del proyecto y ejecuta el siguiente comand
 
 ```bash
 pip install streamlit pandas numpy joblib plotly scikit-learn
+
+### 3. Ejecutar la aplicación
+
+Una vez instaladas las dependencias, lanza el servidor local de Streamlit ejecutando el script principal:
+
+```bash
+streamlit run app_correcta.py
+```
+
+Automáticamente se abrirá una pestaña en tu navegador web (por defecto en `http://localhost:8501`) mostrando la secuencia de arranque del motor MantenIA.
+
+---
+
+### 📂 Estructura de Módulos
+
+- **📊 Dashboard General:** KPIs globales de salud de los activos y telemetría simulada en tiempo real.
+- **🔍 Inferencia Manual:** Herramienta para probar el modelo escribiendo reportes técnicos o síntomas de la maquinaria a mano.
+- **📁 Análisis en Lote (CSV):** Ingesta masiva de datos estructurados para predecir fallas históricas de forma paralela.
+- **📋 Log de Telemetría:** Registro de auditoría temporal (`st.session_state`) de todas las inferencias realizadas en la sesión actual.
+- **📖 Documentación:** Especificaciones técnicas y hoja de ruta (Roadmap V2.0).
+
+> *Desarrollado como prototipo de visualización de Inteligencia Artificial Industrial.*
