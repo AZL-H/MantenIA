@@ -1,22 +1,108 @@
-# ⚡ MantenIA | Asset Intelligence Engine (PoC)
+# ⚡ MantenIA | Plataforma de Mantenimiento Predictivo
 
-**MantenIA** es una Prueba de Concepto (PoC) de un panel de control industrial de próxima generación (SaaS). Está diseñado para simular el monitoreo predictivo de activos (maquinaria, bombas, motores) mediante el análisis de registros técnicos y telemetría, transformando el mantenimiento reactivo en estrategias proactivas (Condition-Based Maintenance).
+**MantenIA** es una **Prueba de Concepto (PoC)** de una aplicación web orientada al mantenimiento predictivo de maquinaria industrial. Su objetivo es utilizar datos históricos provenientes de sensores y registros de operación para identificar **comportamientos anómalos y posibles condiciones de falla** antes de que ocurra una avería.
 
-La interfaz cuenta con un diseño "Futurista/Industrial Dark Mode", gráficos en tiempo real simulados y un pipeline de inferencia por lotes (Batch) y manual.
+El proyecto plantea una arquitectura adaptable a diferentes tipos de activos industriales, como **motores, bombas, bandas transportadoras o máquinas de inyección**, considerando que cada tipo de maquinaria puede requerir diferentes variables, datos históricos y modelos de análisis.
+
+La aplicación permite visualizar información de los activos, analizar registros históricos y ejecutar predicciones mediante modelos de Machine Learning.
+
+---
+
+## 🎯 Objetivo del proyecto
+
+MantenIA busca apoyar la transición del **mantenimiento reactivo** hacia un enfoque de **mantenimiento basado en condición (Condition-Based Maintenance)** y mantenimiento predictivo.
+
+El flujo general planteado es:
+
+**Sensores → Datos históricos → Preprocesamiento → Análisis → Modelo de ML → Detección de anomalías/fallas → Visualización**
+
+Los datos pueden incluir variables como:
+
+* Vibración.
+* Temperatura.
+* Presión.
+* Corriente o consumo eléctrico.
+* Velocidad.
+* Horas de operación.
+* Registros de mantenimiento.
+* Estado o condición del activo.
+
+Las variables utilizadas dependerán del tipo de maquinaria analizada.
 
 ---
 
 ## 🏗️ Arquitectura del PoC
 
-La aplicación está construida sobre una arquitectura ligera y funcional orientada a datos:
+La aplicación está construida sobre una arquitectura ligera orientada al procesamiento y visualización de datos:
 
-1. **Frontend (UI/UX):** Desarrollado con **Streamlit**, implementando inyecciones de CSS puro para lograr un estilo HUD industrial y componentes interactivos sin necesidad de frameworks JS externos. Visualización de telemetría dinámica con **Plotly**.
-2. **Procesamiento de Datos:** Uso de **Pandas** y **NumPy** para la ingesta de archivos CSV masivos (registros CMMS históricos) y la simulación matemática de espectros de vibración RMS.
-3. **Motor de Inferencia (ML):** Pipeline de Procesamiento de Lenguaje Natural (NLP). El texto técnico o firmas de comportamiento ingresados se vectorizan y pasan por un "Ensemble" de clasificadores tradicionales de Machine Learning para emitir un diagnóstico binario (*Riesgo de Falla* vs *Operación Nominal*).
+1. **Interfaz web:** desarrollada inicialmente con **Streamlit**, permitiendo construir rápidamente un dashboard interactivo para la visualización de información de los activos.
+
+2. **Procesamiento de datos:** uso de **Pandas** y **NumPy** para la carga, limpieza, transformación y análisis de registros históricos almacenados principalmente en archivos CSV.
+
+3. **Visualización:** utilización de **Plotly** para representar tendencias, variables de sensores y otros indicadores relacionados con el estado del activo.
+
+4. **Machine Learning:** integración de modelos de aprendizaje automático para analizar los datos históricos y detectar patrones asociados con condiciones normales o anómalas.
+
+5. **Análisis de señales:** como línea de desarrollo futura, se contempla utilizar técnicas de procesamiento de señales, incluyendo **Transformada de Fourier (FFT)**, para analizar características de señales provenientes de sensores como vibración.
 
 ---
 
-## ⚠️ Nota sobre los Modelos de Inferencia (.pkl)
+## 📊 Funcionalidades del PoC
+
+### 📈 Dashboard
+
+Visualización general del estado de los activos mediante indicadores y gráficos de las variables registradas.
+
+### 📁 Carga de datos históricos
+
+Permite cargar archivos CSV con registros de sensores para realizar su procesamiento y análisis.
+
+### 🔍 Análisis de condición
+
+Evaluación de los datos para identificar comportamientos que puedan diferir de las condiciones normales de operación.
+
+### 🤖 Predicción
+
+Ejecución de un modelo de Machine Learning sobre los datos procesados para generar una estimación del estado o condición del activo.
+
+### 📡 Telemetría
+
+Visualización de series temporales de las variables registradas por los sensores.
+
+### 📋 Registro de análisis
+
+Conservación de las predicciones y análisis realizados durante la sesión de la aplicación.
+
+---
+
+## 🔬 Análisis de señales y Transformada de Fourier
+
+Como parte de las futuras etapas del proyecto, MantenIA contempla incorporar técnicas de procesamiento de señales.
+
+La **Transformada Rápida de Fourier (FFT)** puede utilizarse, por ejemplo, para transformar una señal de vibración desde el dominio del tiempo al dominio de la frecuencia.
+
+Esto permitiría obtener características relacionadas con determinadas frecuencias y utilizarlas como variables adicionales para el análisis del estado de una máquina.
+
+Este componente se plantea como una línea de desarrollo y **no representa todavía una implementación completa de diagnóstico de fallas mecánicas**.
+
+---
+
+## ⚠️ Estado actual de los modelos
+
+Los modelos incluidos en esta versión son de carácter **experimental** y tienen como finalidad permitir la demostración de la interfaz y del flujo general de inferencia.
+
+No deben interpretarse como modelos entrenados específicamente para diagnosticar una máquina industrial real.
+
+Para una implementación posterior será necesario disponer de datos representativos de la maquinaria objetivo y realizar un proceso de:
+
+1. Recolección de datos.
+2. Limpieza y preprocesamiento.
+3. Selección de variables.
+4. Identificación de condiciones normales y anómalas.
+5. Entrenamiento del modelo.
+6. Validación y evaluación.
+7. Integración del modelo en la aplicación.
+
 
 Para fines de esta demostración rápida (PoC) y para permitir que la interfaz gráfica sea completamente interactiva de inmediato, **los modelos empaquetados en este repositorio son de muestra preliminar.**
 
@@ -32,17 +118,22 @@ Para fines de esta demostración rápida (PoC) y para permitir que la interfaz g
 
 *(Nota: La aplicación incluye un mecanismo de "Fallback" automático. Si estos archivos `.pkl` se eliminan o no se encuentran, la app arrancará en "Modo Simulación" evaluando palabras clave básicas).*
 
+
 ---
 
-## 🚀 Instrucciones de Ejecución Rápida
+## 🚀 Instalación y ejecución
 
-Sigue estos pasos para levantar la aplicación en tu entorno local en Windows
+### 1. Requisitos
 
-### 1. Requisitos previos
-Asegúrate de tener Python 3.8 o superior instalado en tu sistema.
+Se requiere:
 
-### 2. Instalación de dependencias
-Abre tu terminal, navega a la carpeta del proyecto y ejecuta el siguiente comando para instalar las librerías necesarias (se incluye `scikit-learn` que es necesario para cargar los modelos `.pkl`):
+* Python 3.8 o superior.
+* Windows, Linux o macOS.
+* Git (opcional).
+
+### 2. Instalar dependencias
+
+Abre una terminal en la carpeta del proyecto y ejecuta:
 
 ```bash
 pip install streamlit pandas numpy joblib plotly scikit-learn
@@ -50,21 +141,92 @@ pip install streamlit pandas numpy joblib plotly scikit-learn
 
 ### 3. Ejecutar la aplicación
 
-Una vez instaladas las dependencias, lanza el servidor local de Streamlit ejecutando el script principal:
+Ejecuta:
 
 ```bash
 streamlit run app_correcta.py
 ```
 
-Automáticamente se abrirá una pestaña en tu navegador web (por defecto en `http://localhost:8501`) mostrando la secuencia de arranque del motor MantenIA.
+La aplicación estará disponible localmente en:
 
+```text
+http://localhost:8501
+```
 
-### 📂 Estructura de Módulos
+---
 
-- **📊 Dashboard General:** KPIs globales de salud de los activos y telemetría simulada en tiempo real.
-- **🔍 Inferencia Manual:** Herramienta para probar el modelo escribiendo reportes técnicos o síntomas de la maquinaria a mano.
-- **📁 Análisis en Lote (CSV):** Ingesta masiva de datos estructurados para predecir fallas históricas de forma paralela.
-- **📋 Log de Telemetría:** Registro de auditoría temporal (`st.session_state`) de todas las inferencias realizadas en la sesión actual.
-- **📖 Documentación:** Especificaciones técnicas y hoja de ruta (Roadmap V2.0).
+## 📂 Estructura general del proyecto
 
-> *Desarrollado como prototipo de visualización de Inteligencia Artificial Industrial.*
+```text
+MantenIA/
+├── app_correcta.py
+├── vectorizador_prod.pkl
+├── modelo_svm.pkl
+├── modelo_naive_bayes.pkl
+├── modelo_lda_prod.pkl
+├── README.md
+└── requirements.txt
+```
+
+> La estructura puede modificarse conforme evolucione la arquitectura del proyecto.
+
+---
+
+## 🛣️ Roadmap
+
+### V1 — Prototipo
+
+* [x] Dashboard web.
+* [x] Carga de archivos CSV.
+* [x] Visualización de datos.
+* [x] Integración inicial de modelos de ML.
+* [x] Ejecución local.
+
+### V2 — Análisis de sensores
+
+* [ ] Incorporar datos reales de sensores.
+* [ ] Implementar preprocesamiento de series temporales.
+* [ ] Incorporar análisis de vibraciones.
+* [ ] Explorar Transformada de Fourier (FFT).
+* [ ] Generar características a partir de señales.
+
+### V3 — Modelos específicos por activo
+
+* [ ] Definir variables relevantes para cada tipo de maquinaria.
+* [ ] Entrenar modelos con datos específicos de cada activo.
+* [ ] Evaluar diferentes algoritmos de Machine Learning.
+* [ ] Validar los modelos con datos históricos.
+* [ ] Implementar métricas de evaluación.
+
+### V4 — Plataforma web
+
+* [ ] Separar frontend y backend.
+* [ ] Implementar API mediante FastAPI.
+* [ ] Gestionar usuarios y activos.
+* [ ] Almacenar datos en una base de datos.
+* [ ] Desplegar la aplicación en un servidor.
+
+---
+
+## ⚠️ Alcance del proyecto
+
+MantenIA es un **prototipo académico** desarrollado para demostrar el diseño de una solución de mantenimiento predictivo basada en datos.
+
+Los resultados generados por la aplicación **no deben utilizarse como sustituto de una inspección técnica, diagnóstico profesional o sistema industrial certificado**.
+
+---
+
+## 📚 Tecnologías utilizadas
+
+* **Python**
+* **Streamlit**
+* **Pandas**
+* **NumPy**
+* **Scikit-learn**
+* **Joblib**
+* **Plotly**
+
+---
+
+> **MantenIA — Prototipo de Inteligencia Artificial aplicada al mantenimiento predictivo industrial.**
+
