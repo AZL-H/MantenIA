@@ -182,29 +182,6 @@ MantenIA/
 * [x] Integración inicial de modelos de ML.
 * [x] Ejecución local.
 
-### V2 — Análisis de sensores
-
-* [ ] Incorporar datos reales de sensores.
-* [ ] Implementar preprocesamiento de series temporales.
-* [ ] Incorporar análisis de vibraciones.
-* [ ] Explorar Transformada de Fourier (FFT).
-* [ ] Generar características a partir de señales.
-
-### V3 — Modelos específicos por activo
-
-* [ ] Definir variables relevantes para cada tipo de maquinaria.
-* [ ] Entrenar modelos con datos específicos de cada activo.
-* [ ] Evaluar diferentes algoritmos de Machine Learning.
-* [ ] Validar los modelos con datos históricos.
-* [ ] Implementar métricas de evaluación.
-
-### V4 — Plataforma web
-
-* [ ] Separar frontend y backend.
-* [ ] Implementar API mediante FastAPI.
-* [ ] Gestionar usuarios y activos.
-* [ ] Almacenar datos en una base de datos.
-* [ ] Desplegar la aplicación en un servidor.
 
 ---
 
