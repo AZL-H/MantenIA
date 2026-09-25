@@ -46,6 +46,7 @@ Abre tu terminal, navega a la carpeta del proyecto y ejecuta el siguiente comand
 
 ```bash
 pip install streamlit pandas numpy joblib plotly scikit-learn
+```
 
 ### 3. Ejecutar la aplicación
 
@@ -57,7 +58,6 @@ streamlit run app_correcta.py
 
 Automáticamente se abrirá una pestaña en tu navegador web (por defecto en `http://localhost:8501`) mostrando la secuencia de arranque del motor MantenIA.
 
----
 
 ### 📂 Estructura de Módulos
 
