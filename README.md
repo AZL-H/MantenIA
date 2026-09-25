@@ -36,7 +36,7 @@ Para fines de esta demostración rápida (PoC) y para permitir que la interfaz g
 
 ## 🚀 Instrucciones de Ejecución Rápida
 
-Sigue estos pasos para levantar la aplicación en tu entorno local en menos de 2 minutos.
+Sigue estos pasos para levantar la aplicación en tu entorno local en Windows
 
 ### 1. Requisitos previos
 Asegúrate de tener Python 3.8 o superior instalado en tu sistema.
